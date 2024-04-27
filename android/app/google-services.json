@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "769997274967",
+    "project_id": "riderental-bf8be",
+    "storage_bucket": "riderental-bf8be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769997274967:android:8f8c900a90b96beaa70812",
+        "android_client_info": {
+          "package_name": "com.ride.rental"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAujmCCJm71a09p5TkGb4fBB-SCLa0j_kA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
