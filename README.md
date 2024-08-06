@@ -46,7 +46,8 @@ The successful development and deployment of the RideRental mobile application w
 ![App Screenshot 2](images/screenshot2.png)
 ![App Screenshot 3](images/screenshot3.png)
 
-### Video
+### Video![Login](https://github.com/user-attachments/assets/eefda558-6b30-4f1a-8260-0792ab00661a)
+
 [![Watch the video](images/video_thumbnail.png)](path_to_video)
 
 ## Installation and Setup
