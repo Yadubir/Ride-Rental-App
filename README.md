@@ -54,8 +54,8 @@ The successful development and deployment of the RideRental mobile application w
 [![Watch the video](images/video_thumbnail.png)](path_to_video)
 
 ## Installation and Setup
-1. Clone the repository: `git clone https://github.com/yourusername/riderentals.git`
-2. Navigate to the project directory: `cd riderentals`
+1. Clone the repository: `git clone https://github.com/Yadubir/Ride-Rental-App.git`
+2. Navigate to the project directory: `cd Ride-Rental-App`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 
