@@ -42,11 +42,11 @@ The successful development and deployment of the RideRental mobile application w
 
 ## Media
 ### Photos
-![Login](https://github.com/user-attachments/assets/eefda558-6b30-4f1a-8260-0792ab00661a){:width="50" height="100"}
-![Homepage](https://github.com/user-attachments/assets/45ec9bdf-7d6a-4136-905b-9f2b54c15fcc){:width="50" height="100"}
-![Reservation](https://github.com/user-attachments/assets/85981301-1049-44cc-82ed-7ce3e7259da7){:width="50" height="100"}
-![Penalty](https://github.com/user-attachments/assets/1f19b5d9-fd2e-408f-b179-d82b7a168367){:width="50" height="100"}
-![Feedback](https://github.com/user-attachments/assets/c03c4109-e2b9-40e9-b8bc-2152ba6c1b7a){:width="50" height="100"}
+<img src="https://github.com/user-attachments/assets/eefda558-6b30-4f1a-8260-0792ab00661a" alt="Login" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/45ec9bdf-7d6a-4136-905b-9f2b54c15fcc" alt="Homepage" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/85981301-1049-44cc-82ed-7ce3e7259da7" alt="Reservation" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/1f19b5d9-fd2e-408f-b179-d82b7a168367" alt="Penalty" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/c03c4109-e2b9-40e9-b8bc-2152ba6c1b7a" alt="Feedback" width="200" height="400">
 
 ### Video
 
