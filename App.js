@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Homepage from './screens/HomePage';
@@ -9,34 +9,47 @@ import LoginPage from './screens/LoginPage';
 import ReservationPage from './screens/ReservationPage';
 import PenaltyPage from './screens/PenaltyPage';
 import CustomNavbar from './screens/CustomNavbar';
+import SignupPage from './screens/SignupPage';
+import { UserProvider } from './ContextAPI/Usercontext';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const handleLogin = (userData) => {
+    setUserData(userData);
+    setIsLoggedIn(true);
+  };
 
   return (
-    <NavigationContainer>
-      {!isLoggedIn ? (
-        <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      ) : (
-        <View style={{ flex: 1 }}>
-          <View style={styles.container}>
-            <StatusBar style="auto" />
-          </View>
-          <Stack.Navigator
-            screenOptions={{
-              header: ({ navigation }) => <CustomNavbar navigation={navigation} />,
-            }}
-          >
-            <Stack.Screen name="Homepage" component={Homepage} />
-            <Stack.Screen name="Profile" component={ProfilePage} />
-            <Stack.Screen name="Reservation" component={ReservationPage} />
-            <Stack.Screen name="Penalty" component={PenaltyPage} />
+    <UserProvider>
+      <NavigationContainer>
+        {!isLoggedIn ? (
+          <Stack.Navigator initialRouteName="LoginPage">
+            <Stack.Screen name="LoginPage">
+              {(props) => <LoginPage {...props} onLogin={handleLogin} />}
+            </Stack.Screen>
+            <Stack.Screen name="SignupPage" component={SignupPage} />
           </Stack.Navigator>
-        </View>
-      )}
-    </NavigationContainer>
+        ) : (
+          <View style={{ flex: 1 }}>
+            <View style={styles.container}>
+              <StatusBar style="auto" />
+            </View>
+            <Stack.Navigator screenOptions={{ header: (props) => <CustomNavbar {...props} /> }}>
+              <Stack.Screen name="Homepage">
+                {(props) => <Homepage {...props} userData={userData} />}
+              </Stack.Screen>
+              <Stack.Screen name="ProfilePage" component={ProfilePage} />
+              <Stack.Screen name="ReservationPage" component={ReservationPage} />
+              <Stack.Screen name="PenaltyPage" component={PenaltyPage} />
+            </Stack.Navigator>
+          </View>
+        )}
+      </NavigationContainer>
+    </UserProvider>
   );
 }
 

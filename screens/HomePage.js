@@ -1,29 +1,48 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MapView from 'react-native-maps';
+import axios from 'axios';
 
 const Homepage = () => {
+  const [activeReservations, setActiveReservations] = useState([]);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    fetchActiveReservations();
+  }, []);
+
   const handleReservation = (location) => {
-    // Implement reservation logic here
-    console.log(`Reserved bike at ${location}`);
-    navigation.navigate('Reservation');
+    // Navigate to the reservation page
+    navigation.navigate('ReservationPage', { location });
+  }
+
+  const fetchActiveReservations = async () => {
+    try {
+      // Fetch active reservations from the backend
+      const response = await axios.get('http://172.25.224.154:3000/activeReservations');
+      setActiveReservations(response.data);
+    } catch (error) {
+      console.error('Error fetching active reservations:', error);
+    }
   };
 
-  const handleEndRide = () => {
-    // Implement end ride logic here
-    console.log('Ended ride');
+  const handleEndRide = async (reservationId) => {
+    try {
+      // Send request to the backend to end the ride
+      await axios.delete(`http://172.25.224.154:3000/reservation/${reservationId}`);
+      // Remove the ended reservation from the active list
+      setActiveReservations(prevReservations =>
+        prevReservations.filter(reservation => reservation._id !== reservationId)
+      );
+    } catch (error) {
+      console.error('Error ending ride:', error);
+    }
   };
 
-  const handleExtendRide = () => {
-    // Implement extend ride logic here
-    console.log('Extended ride');
-  };
-
-  const navigateToPenaltyPage = () => {
-    navigation.navigate('Penalty');
+  const handleExtendRide = (reservationId) => {
+    // Navigate to the reservation page for extending the ride
+    navigation.navigate('ReservationPage');
   };
 
   return (
@@ -71,24 +90,28 @@ const Homepage = () => {
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Active Reservations</Text>
-        <View style={styles.reservation}>
-          <Text>Reservation AB to LH-2</Text>
-          <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={[styles.endRideButton, styles.button]}
-              onPress={handleEndRide}
-            >
-              <Text style={styles.buttonText}>End Ride</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.extendRideButton, styles.button]}
-              onPress={handleExtendRide}
-            >
-              <Text style={styles.buttonText}>Extend Ride</Text>
-            </TouchableOpacity>
-          </View>
-          <Text>End Time: 12:00 PM</Text>
-        </View>
+        <ScrollView>
+          {activeReservations.map(reservation => (
+            <View key={reservation._id} style={styles.reservation}>
+              <Text>Reservation {reservation.from} to {reservation.parkingStand}</Text>
+              <View style={styles.buttonsContainer}>
+                <TouchableOpacity
+                  style={[styles.endRideButton, styles.button]}
+                  onPress={() => handleEndRide(reservation._id)}
+                >
+                  <Text style={styles.buttonText}>End Ride</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.extendRideButton, styles.button]}
+                  onPress={() => handleExtendRide(reservation._id)}
+                >
+                  <Text style={styles.buttonText}>Extend Ride</Text>
+                </TouchableOpacity>
+              </View>
+              <Text>End Time: 20 mins.{reservation.endTime}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );

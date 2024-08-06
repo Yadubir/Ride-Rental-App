@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import axios from 'axios';
 
 const ProfilePage = () => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      // Send a request to fetch user data from the backend
+      const response = await axios.get('http://172.25.224.154:3000/user'); // Assuming the endpoint for fetching user data is '/user'
+      setUserData(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.profilePhotoContainer}>
-        <Image
-          source={require('../assets/Spiderman.jpg')}
-          style={styles.profilePhoto}
-        />
-      </View>
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, styles.textCenter]}>Deadpool</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Account Details</Text>
-        <Text style={styles.boldText}>Registration Number</Text>
-        <Text style={styles.textGap}>22BSA10000</Text>
-        <Text style={styles.boldText}>Mobile Number</Text>
-        <Text style={styles.textGap}>9876543210</Text>
-        <Text style={styles.boldText}>Email Address</Text>
-        <Text style={styles.textGap}>abcd@xyz.com</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Rides Completed</Text>
-        <Text>Number of Rides Completed: 10</Text>
-      </View>
+      {userData && (
+        <>
+          <View style={styles.profilePhotoContainer}>
+            <Image
+              source={require('../assets/Spiderman.jpg')} // You can use userData.profilePhoto if the profile photo URL is stored in the user data
+              style={styles.profilePhoto}
+            />
+          </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, styles.textCenter]}>{userData.name}</Text>
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Account Details</Text>
+            <Text style={styles.boldText}>Registration Number</Text>
+            <Text style={styles.textGap}>{userData.registrationNumber}</Text>
+            <Text style={styles.boldText}>Mobile Number</Text>
+            <Text style={styles.textGap}>{userData.mobileNumber}</Text>
+            <Text style={styles.boldText}>Email Address</Text>
+            <Text style={styles.textGap}>{userData.email}</Text>
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Rides Completed</Text>
+            <Text>Number of Rides Completed: {userData.ridesCompleted}</Text>
+          </View>
+        </>
+      )}
     </View>
   );
 };

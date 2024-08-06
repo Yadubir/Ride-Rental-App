@@ -7,13 +7,13 @@ const CustomNavbar = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('Homepage')}>
         <Text style={styles.navItem}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
         <Text style={styles.navItem}>Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Reservation')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ReservationPage')}>
         <Text style={styles.navItem}>Reservation</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Penalty')}>
+      <TouchableOpacity onPress={() => navigation.navigate('PenaltyPage')}>
         <Text style={styles.navItem}>Penalty</Text>
       </TouchableOpacity>
     </View>
